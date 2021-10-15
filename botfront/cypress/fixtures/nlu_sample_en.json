@@ -1,0 +1,74 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "bye",
+        "intent": "chitchat.bye",
+        "entities": []
+      },
+      {
+        "text": "goodbye",
+        "intent": "chitchat.bye",
+        "entities": []
+      },
+      {
+        "text": "hello",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "hi",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "apple",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "kiwi",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "banana",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "Let's get started!",
+        "intent": "get_started",
+        "entities": []
+      }
+    ],
+    "entity_synonyms": [
+      {
+          "value": "doodad",
+          "synonyms": [
+              "dingus",
+              "doohickey",
+              "hickey",
+              "thingamabob",
+              "thingamajig",
+              "thingummy",
+              "whatchamacallit"
+          ]
+      }
+  ],
+    "gazette": [
+      {
+          "mode": "ratio",
+          "value": "color",
+          "gazette": [
+              "green",
+              "red",
+              "blue"
+          ],
+          "min_score": {
+              "$numberInt": "99"
+          }
+      }
+    ]
+  }
+}

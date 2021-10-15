@@ -1,0 +1,40 @@
+type Query {
+    dialogueSearch(
+        projectId: String!
+        language: String!
+        queryString: String!
+    ): DialogueSearchResults
+}
+
+type Mutation {
+    upsertTestResults(results: [TestCaseUpdate]): TestModificationResponse,
+}
+
+type TestModificationResponse { 
+    success: Boolean!
+}
+
+input TestCaseUpdate {
+    _id: String!,
+    projectId: String!,
+    testResults: [Any],
+    success: Boolean!,
+}
+
+type DialogueSearchResults {
+    dialogueFragments: [Story]
+    forms: [Form]
+}
+
+type Story {
+    _id: String
+    type: DialogueFragmentType
+    title: String
+    storyGroupId: String
+    projectId: String
+}
+
+enum DialogueFragmentType {
+    story
+    rule
+}

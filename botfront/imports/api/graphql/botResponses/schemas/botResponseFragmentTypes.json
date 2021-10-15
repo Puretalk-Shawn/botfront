@@ -1,0 +1,38 @@
+[
+    {
+        "kind": "INTERFACE",
+        "name": "BotResponsePayload",
+        "possibleTypes": [
+            {
+                "name": "TextPayload"
+            },
+            {
+                "name": "QuickRepliesPayload"
+            },
+            {
+                "name": "TextWithButtonsPayload"
+            },
+            {
+                "name": "ImagePayload"
+            },
+            {
+                "name": "CarouselPayload"
+            },
+            {
+                "name": "CustomPayload"
+            }
+        ]
+    },
+    {
+        "kind": "INTERFACE",
+        "name": "ButtonPayload",
+        "possibleTypes": [
+            {
+                "name": "PostbackButton"
+            },
+            {
+                "name": "WebUrlButton"
+            }
+        ]
+    }
+]

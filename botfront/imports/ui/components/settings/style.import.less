@@ -1,0 +1,77 @@
+.ui.button.deployment-button{
+    display: block;
+    margin-top: 50px;
+    margin: 10px;
+    margin-left: 0px;
+}
+.import-export-project{
+    .ui.active.tab{
+        border-style: none;
+    }
+    .ui.button.export-option{
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
+    }
+    
+    .or {
+        margin-top:6px;
+    }
+
+    .ui.dropdown.export-option{
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
+    }
+    p.plain-text-message{
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .ui.toggle.checkbox.export-option{
+        margin: 0.5em;
+    }
+    div.data-import-loader {
+        height: 52px;
+    }
+}
+
+.ui.grid>.column.widget-column{
+    display: flex;
+    flex-direction: row-reverse;
+    .widget-container {
+        position: relative;
+    }
+}
+
+.ui.grid .monospaced.field > textarea{
+    font-family: monospace !important; // important is required as it defined as important in main.less
+}
+
+.ui.button.copy-button{
+    margin-bottom: 0.7rem;
+}
+
+
+.ui .copiable-code input#snippet{
+    font-family: monospace !important; //
+    pointer-events: none;
+    background-color: #f8ffff;
+    color: #356675;
+    text-overflow: ellipsis;
+}
+
+.ui.form .field.ssh-keys {
+  margin-bottom: 0.4rem;  
+}
+
+.token-generate {
+    display: flex;
+    div.field {
+        flex-grow: 1
+    }
+    button.ui.button {
+        height: fit-content;
+        height: -moz-fit-content;
+        margin-top: 1.65rem;
+        padding: 0.9rem 0.7rem;
+        margin-left: 0.6rem;
+    }
+}

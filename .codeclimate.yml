@@ -1,0 +1,53 @@
+version: "2"
+plugins:
+    eslint:
+        enabled: true
+        config: /.eslintrc.js
+    nodesecurity:
+        enabled: true
+checks:
+    similar-code:
+        enabled: false
+    identical-code:
+        enabled: true
+    file-lines:
+        config:
+            threshold: 500
+#   argument-count:
+#     config:
+#       threshold: 4
+#   complex-logic:
+#     config:
+    #   threshold: 6
+#   method-complexity:
+#     config:
+#       threshold: 6
+#   method-count:
+#     config:
+#       threshold: 20
+#   method-lines:
+#     config:
+#       threshold: 60
+#   nested-control-flow:
+#     config:
+#       threshold: 4
+#   return-statements:
+#     config:
+#       threshold: 4
+exclude_patterns:
+    - "config/"
+    - "db/"
+    - "dist/"
+    - "features/"
+    - "**/node_modules/"
+    - "script/"
+    - "**/spec/"
+    - "**/*.spec.js"
+    - "**/test/"
+    - "**/tests/"
+    - "Tests/"
+    - "**/vendor/"
+    - "**/*_test.go"
+    - "**/*.d.ts"
+    - ".*/**/*.d.ts"
+

@@ -1,0 +1,61 @@
+type Query {
+  getActivity(
+    projectId: String!
+    language: String!
+    env: String
+    pageSize: Int
+    sortKey: String
+    sortDesc: Boolean
+    cursor: String
+    validated: Boolean
+    ooS: Boolean
+    filter: ExampleFilterInput
+  ): ActivityPage
+}
+
+type ActivityPage {
+  activity: [Activity!]
+  pageInfo: PageInfo
+}
+
+type Mutation {
+  upsertActivity(projectId: String!, language: String!, data: [ActivityInput!]!, isOoS: Boolean): [Activity!]
+  deleteActivity(projectId: String!, language: String!, ids: [String!]!, isOoS: Boolean): [Activity!]
+}
+
+input ActivityInput {
+  _id: String
+  text: String
+  intent: String
+  entities: [EntityInput]
+  confidence: Float
+  validated: Boolean
+  createdAt: Date
+  updatedAt: Date
+  ooS: Boolean
+  message_id: String
+  conversation_id: String
+}
+
+type Activity {
+  _id: String!
+  projectId: String!
+  language: String!
+  text: String!
+  intent: String
+  entities: [Entity]
+  confidence: Float
+  validated: Boolean
+  createdAt: Date
+  updatedAt: Date
+  ooS: Boolean
+  message_id: String
+  conversation_id: String
+}
+
+input ExampleFilterInput {
+  query: String
+  intents: [String]
+  entities: [String]
+  dateRange: Any
+}

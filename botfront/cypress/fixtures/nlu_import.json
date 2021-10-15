@@ -1,0 +1,38 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "c'est moi Matthieu",
+        "intent": "chitchat.presentation",
+        "entities": [{
+          "start": 10,
+          "end": 18,
+          "value": "Matthieu",
+          "entity": "name"
+        }]
+      },
+      {
+        "text": "Je m'appelle Matthieu",
+        "intent": "chitchat.presentation",
+        "entities": [{
+          "start": 13,
+          "end": 21,
+          "value": "Matthieu",
+          "entity": "name"
+        }]
+      },
+      {
+        "text": "tu es terrible",
+        "intent": "chitchat.you_are_worthless",
+        "entities": []
+      },
+      {
+        "text": "tu n'es pas très bon",
+        "intent": "chitchat.you_are_worthless",
+        "entities": []
+      }
+    ],
+    "entity_synonyms": [],
+    "fuzzy_gazette": []
+  }
+}

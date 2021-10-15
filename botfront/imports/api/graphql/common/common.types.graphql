@@ -1,0 +1,60 @@
+scalar Date
+
+scalar Moment
+
+scalar Any
+
+enum order {
+    ASC
+    DESC
+}
+
+type PageInfo {
+    endCursor: String!
+    hasNextPage: Boolean!
+    totalLength: Int
+}
+
+type SubscriptionWarning {
+    projectId: String
+    language: String
+    changed: Boolean!
+}
+
+type batchMutationOutput {
+    nTotal: Int
+    nPushed: Int
+    nInserted: Int
+    nUpdated: Int
+    failed: [String]
+}
+
+type Entity {
+    entity: String
+    value: String
+    group: String
+    role: String
+    start: Int
+    end: Int
+    confidence: Float
+    extractor: String
+    processors: [String]
+}
+
+input EntityInput {
+    entity: String
+    value: String
+    group: String
+    role: String
+    start: Int
+    end: Int
+    confidence: Float
+    confidence_entity: Float
+    extractor: String
+    processors: [String]
+}
+
+type updateResponse {
+    success: Boolean!
+    _id: String
+}

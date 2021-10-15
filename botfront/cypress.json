@@ -1,0 +1,25 @@
+{
+    "fixturesFolder": "cypress/fixtures",
+    "integrationFolder": "cypress/integration",
+    "pluginsFile": "cypress/plugins/index.js",
+    "screenshotsFolder": "cypress/screenshots",
+    "supportFile": "cypress/support/index.js",
+    "videoUploadOnPasses": false,
+    "videosFolder": "cypress/videos",
+    "baseUrl": "http://localhost:3000",
+    "defaultCommandTimeout": 10000,
+    "watchForFileChanges": false,
+    "numTestsKeptInMemory": 1 ,
+    "viewportHeight": 900,
+    "viewportWidth": 1800,
+    "ignoreTestFiles":["**/roles-example.spec.js"],
+    "retries": {
+        "runMode": 5,
+        "openMode": 0
+    },
+    "env": {
+        "RASA_URL": "http://localhost:5005",
+        "VIDEO": "false",
+        "SCREENSHOTS": "true"
+    }
+}

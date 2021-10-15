@@ -1,0 +1,43 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "hello",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "au revoir",
+        "intent": "chitchat.bye",
+        "entities": []
+      },
+      {
+        "text": "à plus",
+        "intent": "chitchat.bye",
+        "entities": []
+      },
+      {
+        "text": "salut",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "banane",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "kiwi",
+        "intent": "chitchat.greet",
+        "entities": []
+      },
+      {
+        "text": "pomme",
+        "intent": "chitchat.greet",
+        "entities": []
+      }
+    ],
+    "entity_synonyms": [],
+    "fuzzy_gazette": []
+  }
+}

@@ -1,0 +1,269 @@
+.virtual-table,
+.virtual-table-sticky-row {
+    background-color: #fff;
+}
+
+.virtual-table {
+    height: 100vh;
+    width: 100%;
+    outline: none;
+    
+    .row-wrapper {
+        outline: none;
+        background-color: inherit;
+        user-select: none;
+    }
+
+    .row {
+        user-select: text;
+        background-color: #fff;
+        display: flex;
+        min-height: 40px;
+        padding: 4px 0 2px;
+        border-bottom: 1px solid #eee;
+
+        &.header {
+            min-height: 30px;
+            font-weight: bold;
+        }
+
+        @selection-bg: lighten(@blue, 45%);
+        @selection-border: lighten(@blue, 35%);
+        @hover-bg: lighten(@selection-bg, 5%);
+        @hover-border: lighten(@selection-border, 10%);
+        @hover-selection-bg: darken(@selection-bg, 5%);
+        @hover-selection-border: darken(@selection-border, 10%);
+
+        .createcolorrowclasses(@i:1) when(@i <= length(@basic-colors)) {
+            @name: extract(extract(@basic-colors, @i), 1);
+            @color: extract(extract(@basic-colors, @i), 2);
+        
+            &.@{name} {
+                background-color: lighten(@color, 45%);
+                border-bottom: 1px solid lighten(@color, 35%);
+                &.selected {
+                    background-color: average(@selection-bg, lighten(@color, 35%));
+                    border-bottom: 1px solid average(@selection-border, lighten(@color, 25%));
+                }
+                &:not(.header):hover {
+                    background: average(@hover-bg, lighten(@color, 40%));
+                    border-bottom: 1px solid average(@hover-border, lighten(@color, 30%));
+                    &.selected {
+                        background: average(@hover-selection-bg, lighten(@color, 30%));
+                        border-bottom: 1px solid average(@hover-selection-border, lighten(@color, 10%));
+                    }
+                }
+            }
+            .createcolorrowclasses(@i + 1);
+        }
+        
+        .createcolorrowclasses();
+
+        &.selected {
+            background-color: @selection-bg;
+            border-bottom: 1px solid @selection-border;
+        }
+
+        &:not(.header):hover {
+            background: @hover-bg;
+            border-bottom: 1px solid @hover-border;
+            &.selected {
+                background: @hover-selection-bg;
+                border-bottom: 1px solid @hover-selection-border;
+            }
+            .button {
+                visibility: visible;
+            }
+            .button.draft-save-button:not(.disabled) {
+                background-color: @blue;
+                color: #fff;
+            }
+        }
+
+        .button:not(.persistent) {
+            visibility: hidden;
+        }
+
+        .button.default-cursor {
+            cursor: default;
+        }
+
+        .button.draft-save-button {
+            width: 7ch;
+            &::after {
+                content: 'save'
+            }
+        }
+
+        .action-icon{
+            color: rgba(0, 0, 0, 0.4);
+            &:hover{
+                color: rgba(0, 0, 0, 0.7);
+            }
+        }
+    }
+
+    .item {
+        padding: 5px;
+    }
+}
+
+.taller-line {
+    line-height: 1.3em;
+}
+
+.ReactTable {
+    .ui.button.icon-button.basic {
+        width: 23px;
+        background: none !important;
+        box-shadow: none !important;
+
+        &:hover {
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        &.active {
+            color: #000 !important;
+            box-shadow: none !important;
+        }
+    }
+
+    border-radius: 4px;
+    border: 0 !important;
+    .rt-tbody {
+        > :first-child {
+            border-radius: 4px 4px 0 0;
+        }
+        > :last-child {
+            border-radius: 0 0 4px 4px;
+            border-bottom: solid 1px rgba(0, 0, 0, 0.05) !important;
+        }
+        .rt-tr-group {
+            border-top: solid 1px rgba(0, 0, 0, 0.05);
+            border-left: solid 1px rgba(0, 0, 0, 0.05);
+            border-right: solid 1px rgba(0, 0, 0, 0.05);
+        }
+        .rt-tr:not(.-padRow):hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .rt-tr-group:not(:last-child) {
+            border-bottom: 0;
+        }
+        .rt-td {
+            border-right: none !important;
+            white-space: normal;
+        }
+    }
+    .rt-thead.-header {
+        box-shadow: none !important;
+    }
+    .rt-thead.-filters .rt-th, .rt-thead .rt-th,  .rt-thead .rt-td{
+        border-right: none !important;
+    }
+    .rt-thead.-filters {
+        border-bottom: none !important;
+    }
+    .-pagination {
+        z-index: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding-top: 15px !important;
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+        box-shadow: none !important;
+        border-top: none !important;
+
+        input {
+            padding: 3px 7px !important;
+        }
+    }
+}
+
+.ui.popup.dialogue-popup {
+    max-height: 30rem;
+    min-width: 20rem;
+    overflow-y: auto;
+}
+
+.activity-command-bar {
+    position: absolute;
+    height: 50px;
+    min-width: 300px;
+    width: max-content;
+    border-radius: 9px;
+    border: 1px #ddd solid;
+    background-color: #fff;
+    z-index: 100;
+    left: ~"calc(50% - 150px)";
+    bottom: 20px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    box-shadow: 1px 2px 5px rgba(34, 36, 38, 0.1);
+    transform: translateY(100px);
+    animation: slide 0.5s forwards;
+    animation-delay: 0.5s;
+
+    @keyframes slide {
+        100% { transform: translateY(0%); }
+    }
+
+    .shortcut {
+        color: @shortcut-key;
+        font-size: small;
+    }
+
+    & > span:first-child {
+        margin-right: 15px;
+    }
+}
+
+.conversation-side-panel {
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    z-index: 5;
+    background-color: white;
+    width: 25%;
+    min-width: 300px;
+    box-shadow: 1px 0px 8px 3px rgba(250, 167, 167, 0.2);
+    border-radius: 8px;
+    transform: translateX(0px);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    .ui.comments { 
+        margin: 15px;
+    }
+    &.not-here {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    .header {
+        background-color: @botfront-grey-bg;
+        position: sticky;
+        top: 0;
+        height: 40px;
+        padding: 10px 17px;
+        z-index: 1;
+        span {
+            font-weight: 700;
+        }
+        .icon {
+            position: absolute;
+            right: 10px;
+        }
+    }
+}

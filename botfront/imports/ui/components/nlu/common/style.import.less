@@ -1,0 +1,264 @@
+.entity-dropdown.ui.selection.dropdown {
+    border-color: fade(@teal, 50%);
+    border-radius: 0;
+    min-width: 12em;
+
+    &:not(.active) {
+        border-top: none;
+        border-right: none;
+        border-left: none;
+    }
+
+    & > input.search {
+        padding-left: 3em !important;
+    }
+
+    &.icon > .icon {
+        background-color: fade(@teal, 5%);
+        color: @teal;
+    }
+}
+
+.intent-dropdown.ui.selection.dropdown {
+    border-color: fade(@purple, 50%);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+    min-width: 12em;
+
+    & > input.search {
+        padding-left: 3em !important;
+    }
+
+    &.icon > .icon {
+        background-color: fade(@purple, 5%);
+        color: @purple;
+    }
+}
+
+.virtual-table.intent-dropdown {
+    .item.intent {
+        overflow: hidden;
+        margin-right: 14px;
+        margin-top: 4px;
+    }
+    .side-by-side {
+        min-height: 28px;
+        overflow: hidden;
+    }
+}
+.ui.dropdown.intent-multiselect {
+    .intent-dropdown-trigger{
+        width: 100%;
+    }
+    display: flex;
+    width: 100%;
+    padding: 0.25em;
+    padding-right: 0;
+    .placeholder-text {
+        line-height: 1.9em;
+        color: rgba(0,0,0,0.3);
+        margin: 0.25em;
+    }
+    .intent-multiselect-label {
+        margin: 0.15em;
+    }
+    .dropdown-icon {
+        position: absolute;
+        right: 0.5em;
+        top: calc(50% - 15px);
+        color: rgba(0,0,0,0.87);
+    }
+}
+.intent-label {
+    user-select: none;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    color: @purple;
+    width: max-content;
+    font-weight: medium;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    max-width: 100%;
+    word-break: break-word;
+    i.icon.small {
+        display: inline;
+    }
+    cursor: default;
+
+    &.disabled {
+        color: @grey;
+    }
+    &.null {
+        color: @grey;
+    }
+    .action-on-label {
+        float: right;
+        color: @grey;
+        position: relative;
+        bottom: 2px;
+        visibility: hidden;
+    }
+    &:not(.uneditable){
+        .content-on-label {
+            min-width: 130px;
+            position: relative;
+            bottom: 1px;
+        }
+    }
+    &:not(.disabled):not(.uneditable):hover, &.selected {
+        border: 1px solid rgba(176, 176, 176, 0.4);
+        span {
+            color: @grey;
+        }
+        .action-on-label {
+            visibility: visible;
+        }
+    }
+}
+
+.ui.modal.intent-popup {
+    &:before {
+        position: absolute;
+        top: -30px;
+        font-size: large;
+        color: #fff;
+        content: 'Set intent for selected utterances';
+    }
+    width: 500px;
+}
+
+.ui.popup.intent-popup, 
+.ui.modal.intent-popup {
+    padding: 0;
+
+    .ui.fluid.input {
+        margin: 0;
+    }
+    input {
+        border: 0;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+    button {
+        border-radius: 0 0 4px 4px;
+        height: 40px;
+    }
+}
+
+.intent-dropdown {
+    .intent-label {
+        &.selected {
+            font-weight: bold;
+            &::before {
+                margin-right: 5px;
+                content: '\25B6';
+            }
+        }
+        border: initial;
+        span {
+            color: initial;
+        }
+    }
+    .virtual-table .row {
+        margin-right: 0;
+        &:hover {
+            background: none;
+            border-bottom: 1px solid #eee;
+            &.selected {
+                background: lighten(@purple, 40%);
+                border-bottom: 1px solid lighten(@purple, 20%);
+            }
+        }
+        &.selected {
+            background-color: lighten(@purple, 45%);
+            border-bottom: 1px solid lighten(@purple, 35%);
+        }
+        &:hover {
+            cursor: pointer;
+            .intent-label.selectable {
+                cursor: pointer;
+            }
+        }
+    }
+    .reset-intent {
+        position: absolute;
+        right: 0;
+        top: 6px;
+        .button {
+            margin: 0;
+            background-color: transparent;
+            &:hover { background-color: transparent; }
+        }
+    }
+}
+
+.entity-container {
+    line-height: 1.25;
+    display: inline-block;
+    position: relative;
+    .float {
+        position: absolute;
+        max-width: 200px;
+        bottom: ~"calc(100% - 5px)";
+        font-size: small;
+        user-select: none;
+        border-radius: 4px;
+        padding: 0px 2px 1px 2px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        z-index: 10;
+    }
+    .entity-name {
+        visibility: hidden;
+    }
+    &:hover {
+        .entity-name {
+            background-color: rgba(252, 252, 252, 0.863);
+            visibility: visible;
+        }
+    }
+}
+
+.createentitycolorclasses(@i:1) when(@i <= length(@basic-colors)) {
+    @name: extract(extract(@basic-colors, @i), 1);
+    @color: extract(extract(@basic-colors, @i), 2);
+
+    .entity-container.@{name} {
+        :not(.float) {
+            background-color: fade(@color, 17%);
+            border-bottom: 2.5px solid @color;
+        }
+        .float {
+            color: @color
+        }
+        .value-synonym {
+            font-variant: small-caps;
+            font-size: small;
+            color: darken(@color, 15%);
+            font-weight: bold;
+        }
+    }
+    .createentitycolorclasses(@i + 1);
+}
+
+.createentitycolorclasses();
+
+.utterance-viewer {
+    .selected-text {
+        background-color: #c4d8f5;
+    }
+    line-height: 1.25;
+    span {
+        word-break: break-word;
+    }
+}
+
+.ui.purple.fluid.button.create-intent-button {
+    height: 3.4em;
+}

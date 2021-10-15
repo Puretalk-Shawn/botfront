@@ -1,0 +1,192 @@
+type Query {
+    botResponses(projectId: String!): [BotResponse!]
+    botResponse(projectId: String!, key: String!, lang: String): BotResponse
+    botResponseById(_id: String): BotResponse
+    getResponse(
+        template: String!
+        arguments: Any
+        tracker: ConversationInput
+        channel: NlgRequestChannel
+    ): BotResponsePayload,
+    getResponses(
+        templates: [String]!
+        language: String
+        projectId: String
+    ): [BotResponsePayload]
+}
+scalar ConversationInput # for Legacy reasons this is kept as an alias for 'Any'
+
+type Subscription {
+    botResponsesModified(projectId: String!): BotResponse
+    botResponseDeleted(projectId: String!): BotResponse
+}
+
+type Mutation {
+    deleteResponse(projectId: String!, key: String!): updateResponse!
+    upsertFullResponse(
+        projectId: String!
+        _id: String
+        key: String
+        response: BotResponseInput
+    ): updateResponse!
+    createAndOverwriteResponses(
+        projectId: String!
+        responses: [BotResponseInput]
+    ): [BotResponse]
+    upsertResponse(
+        projectId: String!
+        language: String!
+        newPayload: Any
+        key: String!
+        newKey: String
+        # if the response type has been updated, the resolver needs to know so it
+        # can update the rest of the variations and other languages for this response
+        newResponseType: String
+        index: Int = -1
+        logging: Boolean
+    ): BotResponse
+
+    createResponses(projectId: String!, responses: String): updateResponse!
+
+    deleteVariation(projectId: String!, key: String!, language: String!, index: Int!): updateResponse!
+    importRespFromLang(projectId: String!, key: String!,originLang: String!, destLang: String!): BotResponse
+}
+
+type BotResponse {
+    key: String
+    _id: String
+    projectId: String
+    values: [BotResponseValue]
+    metadata: Any
+}
+
+type BotResponseValue {
+    lang: String
+    sequence: [ContentContainer]
+}
+
+type ContentContainer {
+    content: String
+}
+
+input BotResponseInput {
+    key: String
+    _id: String
+    projectId: String
+    values: [BotResponseValueInput]
+    metadata: Any
+}
+
+input BotResponseValueInput {
+    lang: String
+    sequence: [ContentContainerInput]
+}
+
+input ContentContainerInput {
+    content: String
+}
+
+input NlgRequestChannel {
+    name: String
+}
+
+type FutureBotResponse {
+    _id: String!
+    key: String!
+    projectId: String!
+    variants: [BotResponseVariant!]!
+    metadata: Any
+}
+
+type BotResponseVariant {
+    language: String!
+    channel: String
+    payload: BotResponsePayload!
+}
+
+interface BotResponsePayload {
+    key: String
+    metadata: Any
+}
+
+type TextPayload implements BotResponsePayload {
+    key: String
+    text: String
+    metadata: Any
+}
+
+type QuickRepliesPayload implements BotResponsePayload {
+    key: String
+    text: String
+    quick_replies: [Button!]
+    metadata: Any
+}
+
+type TextWithButtonsPayload implements BotResponsePayload {
+    key: String
+    text: String
+    buttons: [Button!]
+    metadata: Any
+}
+
+type ImagePayload implements BotResponsePayload {
+    key: String
+    text: String
+    image: String
+    metadata: Any
+}
+
+type CarouselPayload implements BotResponsePayload {
+    key: String
+    text: String
+    template_type: TemplateType # we don't touch this one for now, as Rasa still tries to access it
+    elements: [CarouselElement!]
+    metadata: Any
+}
+
+type CustomPayload implements BotResponsePayload {
+    key: String
+    text: Any
+    buttons: Any
+    quick_replies: Any
+    elements: Any
+    attachment: Any
+    image: Any
+    custom: Any
+    metadata: Any
+}
+
+type CarouselElement {
+    title: String
+    subtitle: String
+    image_url: String
+    default_action: Button
+    buttons: [Button!]
+}
+
+interface Button {
+    title: String
+    type: ButtonType
+}
+
+type PostbackButton implements Button {
+    title: String
+    type: ButtonType
+    payload: String
+}
+
+type WebUrlButton implements Button {
+    title: String
+    type: ButtonType
+    url: String
+}
+
+enum ButtonType {
+    postback
+    web_url
+}
+
+enum TemplateType {
+    generic
+}
+

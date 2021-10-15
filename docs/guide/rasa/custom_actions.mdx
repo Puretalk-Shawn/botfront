@@ -1,0 +1,60 @@
+---
+name: Creating custom actions
+title: Develop Rasa custom actions
+route: /docs/rasa/custom-actions
+menu: Authoring conversations
+meta:
+  - name: description
+    content: Learn how to develop Rasa custom actions with Botfront.
+  - name: keywords
+    content: rasa sdk custom actions forms
+---
+
+# Create Rasa custom actions
+
+Custom actions are used for all actions that cannot be handled in the visual story editor and require custom code.
+You can use them for API calls, calculations, etc.
+
+Since Botfront uses Rasa, custom actions in Botfront and Rasa are the same.
+
+A custom action is a Python class:
+
+```python
+class FetchStatus(Action):
+
+    def name(self):
+        return 'action_fetch_status'
+
+    def run(self, dispatcher, tracker, domain):
+        url = "https://some.api.com/user/xxx/status"
+        status = requests.get(url).json
+        return [SlotSet("status", status)]
+```
+
+The `run` method performs an arbitrary action and returns an array of [Events](https://rasa.com/docs/rasa/api/events/), generally `SlotSet` events.
+The action above assigns the fetched status to the slot _status_. The slot can then be used in the conversation.
+
+The action can be invoked from the conversation builder:
+<video autoplay muted loop width="100%" controls>
+  <source src="../../videos/custom_actions_builder.m4v" type="video/mp4"/>
+  Your browser does not support the video tag.
+</video>
+
+In the `run` method you can access the conversation state and utter responses. Those are the most commonly used methods, see the [Rasa SDK documentation](https://rasa.com/docs/rasa/api/rasa-sdk/) for more.
+- `tracker.get_slot(slot_name)`: get the value of a slot
+- `tracker.latest_message`: retrieve the latest message sent by a user. The `latest_message` contains the whole payload, including the intent and entities.
+- `dispatcher.utter_message(template="utter_whatever")`: utter a bot response
+
+
+## Using Custom actions
+
+With Botfront Open Source, creating custom actions is super easy.
+As explained below, you can spin up an action server in no time with the CLI and your code will be hot reloading so you can see the impact of your changes live.
+
+
+When initializing a project with `botfront init` an _actions_ folder is created and the action server is automatically launched with `botfront up`.
+You can use `botfront watch` to rebuild and restart your actions server as above.
+
+#### Deployment
+
+You can build your action server Docker image with the `Dockerfile.production` in the `actions` folder of your project.
